@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Model">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archive">
+      <UniqueIdentifier>{8c72b44d-b3c4-4a21-919c-279a165bb4fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{e10768fa-1257-4529-bd17-843df246274c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bola_de_fuego.png">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="Fondo_nubes.png">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="Ovni.png">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="Menu.png">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="IconoFireDragon.png">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="DragonFuego.png">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FrmFireDragon.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="FrmJuego.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorArchivo.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="JuegoService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="Ovni.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="BolaDeFuego.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="FondoDinamico.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FrmFireDragon.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmJuego.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorArchivo.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="JuegoService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="FondoDinamico.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="BolaDeFuego.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Ovni.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="progresoDragonFire.txt">
+      <Filter>Archive</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
