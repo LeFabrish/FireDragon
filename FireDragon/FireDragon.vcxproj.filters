@@ -69,6 +69,9 @@
     <ClCompile Include="FondoDinamico.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="FrmResultados.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FrmFireDragon.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Ovni.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="FrmResultados.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,6 @@
 #pragma once
+#include "FrmJuego.h"
+#include "FrmResultados.h"
 
 namespace FireDragon {
 
@@ -56,14 +58,14 @@ namespace FireDragon {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FrmFireDragon::typeid));
 			this->pnlMenu = (gcnew System::Windows::Forms::Panel());
-			this->pbxJugar = (gcnew System::Windows::Forms::PictureBox());
-			this->pbxPuntajes = (gcnew System::Windows::Forms::PictureBox());
-			this->pbxCreditos = (gcnew System::Windows::Forms::PictureBox());
 			this->txtNombre = (gcnew System::Windows::Forms::TextBox());
+			this->pbxCreditos = (gcnew System::Windows::Forms::PictureBox());
+			this->pbxPuntajes = (gcnew System::Windows::Forms::PictureBox());
+			this->pbxJugar = (gcnew System::Windows::Forms::PictureBox());
 			this->pnlMenu->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxJugar))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxPuntajes))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxCreditos))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxPuntajes))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxJugar))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pnlMenu
@@ -79,23 +81,12 @@ namespace FireDragon {
 			this->pnlMenu->Size = System::Drawing::Size(744, 614);
 			this->pnlMenu->TabIndex = 0;
 			// 
-			// pbxJugar
+			// txtNombre
 			// 
-			this->pbxJugar->BackColor = System::Drawing::Color::Transparent;
-			this->pbxJugar->Location = System::Drawing::Point(241, 418);
-			this->pbxJugar->Name = L"pbxJugar";
-			this->pbxJugar->Size = System::Drawing::Size(266, 82);
-			this->pbxJugar->TabIndex = 0;
-			this->pbxJugar->TabStop = false;
-			// 
-			// pbxPuntajes
-			// 
-			this->pbxPuntajes->BackColor = System::Drawing::Color::Transparent;
-			this->pbxPuntajes->Location = System::Drawing::Point(241, 546);
-			this->pbxPuntajes->Name = L"pbxPuntajes";
-			this->pbxPuntajes->Size = System::Drawing::Size(265, 58);
-			this->pbxPuntajes->TabIndex = 1;
-			this->pbxPuntajes->TabStop = false;
+			this->txtNombre->Location = System::Drawing::Point(315, 520);
+			this->txtNombre->Name = L"txtNombre";
+			this->txtNombre->Size = System::Drawing::Size(191, 20);
+			this->txtNombre->TabIndex = 3;
 			// 
 			// pbxCreditos
 			// 
@@ -106,12 +97,25 @@ namespace FireDragon {
 			this->pbxCreditos->TabIndex = 2;
 			this->pbxCreditos->TabStop = false;
 			// 
-			// txtNombre
+			// pbxPuntajes
 			// 
-			this->txtNombre->Location = System::Drawing::Point(315, 520);
-			this->txtNombre->Name = L"txtNombre";
-			this->txtNombre->Size = System::Drawing::Size(191, 20);
-			this->txtNombre->TabIndex = 3;
+			this->pbxPuntajes->BackColor = System::Drawing::Color::Transparent;
+			this->pbxPuntajes->Location = System::Drawing::Point(241, 546);
+			this->pbxPuntajes->Name = L"pbxPuntajes";
+			this->pbxPuntajes->Size = System::Drawing::Size(265, 58);
+			this->pbxPuntajes->TabIndex = 1;
+			this->pbxPuntajes->TabStop = false;
+			this->pbxPuntajes->Click += gcnew System::EventHandler(this, &FrmFireDragon::pbxPuntajes_Click);
+			// 
+			// pbxJugar
+			// 
+			this->pbxJugar->BackColor = System::Drawing::Color::Transparent;
+			this->pbxJugar->Location = System::Drawing::Point(241, 418);
+			this->pbxJugar->Name = L"pbxJugar";
+			this->pbxJugar->Size = System::Drawing::Size(266, 82);
+			this->pbxJugar->TabIndex = 0;
+			this->pbxJugar->TabStop = false;
+			this->pbxJugar->Click += gcnew System::EventHandler(this, &FrmFireDragon::pbxJugar_Click);
 			// 
 			// FrmFireDragon
 			// 
@@ -124,12 +128,34 @@ namespace FireDragon {
 			this->Text = L"Fire Dragon";
 			this->pnlMenu->ResumeLayout(false);
 			this->pnlMenu->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxJugar))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxPuntajes))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxCreditos))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxPuntajes))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbxJugar))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	};
+	private: System::Void pbxJugar_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (txtNombre->Text == "") {
+			MessageBox::Show("Por favor ingrese su nombre antes de jugar.", "Nombre requerido", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+		this->Hide(); 
+
+		FrmJuego^ fmrJuego = gcnew FrmJuego(txtNombre->Text);
+		fmrJuego->ShowDialog();
+
+		// --- ESTA ES LA LÍNEA MÁGICA QUE TE FALTA ---
+		delete fmrJuego;
+		// Al hacer delete, se activa ~FrmJuego -> delete servicio -> ~JuegoService -> guardarResultado()
+		// ---------------------------------------------
+
+		this->Show(); // Volvemos a mostrar el menú
+	}
+private: System::Void pbxPuntajes_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	FrmResultados^ frmResultados = gcnew FrmResultados();
+	frmResultados->ShowDialog();
+}
+};
 }

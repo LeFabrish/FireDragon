@@ -7,7 +7,7 @@ FondoDinamico::FondoDinamico() {
 	this->imagen[0] = '\0';
 	this->anchoReal = 0;
 	this->altoReal = 0;
-	this->velocidad = 10;
+	this->velocidad = 20;
 	this->pixelX = 0;
 	this->largoRectOrigen = anchoReal / 2;
 	this->altoRectOrigen = altoReal;
@@ -18,7 +18,7 @@ FondoDinamico::FondoDinamico(char* ruta, int ancho, int alto) {
 	strcpy_s(imagen, 100, ruta);
 	this->anchoReal = ancho;
 	this->altoReal = alto;
-	this->velocidad = 10;
+	this->velocidad = 20;
 	this->pixelX = 0;
 	this->largoRectOrigen = anchoReal / 2;
 	this->altoRectOrigen = altoReal;
@@ -44,7 +44,7 @@ void FondoDinamico::cargarImagen(char* ruta, int ancho, int alto) {
 void FondoDinamico::mover() {
 	pixelX += velocidad;
 	// Reiniciar cuando llegamos al final de la imagen
-	if (pixelX >= anchoReal) {
+	if (pixelX >= anchoReal - (largoRectOrigen / 3)) {// queda perfecto el loop del fondo
 		pixelX = 0;
 	}
 }
@@ -69,7 +69,7 @@ void FondoDinamico::dibujar(Graphics^ canvas, int anchoVentana, int altoVentana)
 
 	// Caso normal: tomamos una sección de la imagen
 	Rectangle origen = Rectangle(pixelX, 0, anchoVentana, altoRectOrigen);
-	Rectangle destino = Rectangle(0, 0, (int)(anchoVentana * 1), (int)(altoReal * 1));
+	Rectangle destino = Rectangle(0, 0, (int)(anchoVentana * 1.467), (int)(altoReal * 2.252));
 	canvas->DrawImage(bmp, destino, origen, GraphicsUnit::Pixel);
 
 	delete bmp;

@@ -133,6 +133,7 @@
     <ClCompile Include="FondoDinamico.cpp" />
     <ClCompile Include="FrmFireDragon.cpp" />
     <ClCompile Include="FrmJuego.cpp" />
+    <ClCompile Include="FrmResultados.cpp" />
     <ClCompile Include="GestorArchivo.cpp" />
     <ClCompile Include="JuegoService.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,6 +150,9 @@
     <ClInclude Include="FrmJuego.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="FrmResultados.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="GestorArchivo.h" />
     <ClInclude Include="JuegoService.h" />
     <ClInclude Include="Ovni.h" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmJuego.resx">
       <DependentUpon>FrmJuego.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmResultados.resx">
+      <DependentUpon>FrmResultados.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

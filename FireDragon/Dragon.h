@@ -21,5 +21,8 @@ public:
     Rectangle getRectangle() override;
     int getDx();
     int getDy();
+	int getVidas();
+	int getAncho();
+	int getAlto();
 };
 
