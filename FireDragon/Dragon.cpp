@@ -62,11 +62,11 @@ void Dragon::dibujar(Graphics^ canvas) {
 	canvas->DrawImage(bitmap, cuadroDestino, cuadroOrigen, GraphicsUnit::Pixel);
 	delete bitmap;
 
-	// Hitbox
-	Pen^ pen = gcnew Pen(Color::Red);
-	Rectangle hitbox = getRectangle();
-	canvas->DrawRectangle(pen, hitbox);
-	delete pen;
+	//// Hitbox
+	//Pen^ pen = gcnew Pen(Color::Red);
+	//Rectangle hitbox = getRectangle();
+	//canvas->DrawRectangle(pen, hitbox);
+	//delete pen;
 }
 Rectangle Dragon::getRectangle() {
 	return Rectangle(x + ancho / 4, y + alto / 4, ancho / 2, alto / 2);
