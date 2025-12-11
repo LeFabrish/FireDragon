@@ -15,13 +15,13 @@ namespace FireDragon {
 	public ref class FrmJuego : public System::Windows::Forms::Form
 	{
 	public:
-		FrmJuego(String^ nombreJugador)
+		FrmJuego(String^ nombreJugador, int dificultad)
 		{
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
 			//
-			servicio = new JuegoService(pnlJuego->Width, pnlJuego->Height, toStdString(nombreJugador));
+			servicio = new JuegoService(pnlJuego->Width, pnlJuego->Height, toStdString(nombreJugador), dificultad);
 			servicio->inicializar();
 			tecla = Direccion::Ninguno;
 		}
@@ -58,7 +58,8 @@ namespace FireDragon {
 
 		BufferedGraphics^ buffer;
 		JuegoService* servicio;
-		Direccion tecla;
+	private: System::Windows::Forms::Label^ lblGameOver;
+		   Direccion tecla;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -70,6 +71,7 @@ namespace FireDragon {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(FrmJuego::typeid));
 			this->pnlJuego = (gcnew System::Windows::Forms::Panel());
+			this->lblGameOver = (gcnew System::Windows::Forms::Label());
 			this->lblOvnis = (gcnew System::Windows::Forms::Label());
 			this->lblPuntos = (gcnew System::Windows::Forms::Label());
 			this->lblVidas = (gcnew System::Windows::Forms::Label());
@@ -80,6 +82,7 @@ namespace FireDragon {
 			// pnlJuego
 			// 
 			this->pnlJuego->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->pnlJuego->Controls->Add(this->lblGameOver);
 			this->pnlJuego->Controls->Add(this->lblOvnis);
 			this->pnlJuego->Controls->Add(this->lblPuntos);
 			this->pnlJuego->Controls->Add(this->lblVidas);
@@ -88,33 +91,57 @@ namespace FireDragon {
 			this->pnlJuego->Size = System::Drawing::Size(751, 572);
 			this->pnlJuego->TabIndex = 0;
 			// 
+			// lblGameOver
+			// 
+			this->lblGameOver->AutoSize = true;
+			this->lblGameOver->BackColor = System::Drawing::Color::MintCream;
+			this->lblGameOver->Font = (gcnew System::Drawing::Font(L"Ebrima", 27.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblGameOver->Location = System::Drawing::Point(242, 336);
+			this->lblGameOver->Name = L"lblGameOver";
+			this->lblGameOver->Size = System::Drawing::Size(285, 50);
+			this->lblGameOver->TabIndex = 3;
+			this->lblGameOver->Text = L"FIN DEL JUEGO";
+			// 
 			// lblOvnis
 			// 
 			this->lblOvnis->AutoSize = true;
-			this->lblOvnis->ForeColor = System::Drawing::Color::Lime;
-			this->lblOvnis->Location = System::Drawing::Point(657, 11);
+			this->lblOvnis->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->lblOvnis->Font = (gcnew System::Drawing::Font(L"Ebrima", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblOvnis->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->lblOvnis->Location = System::Drawing::Point(3, 0);
 			this->lblOvnis->Name = L"lblOvnis";
-			this->lblOvnis->Size = System::Drawing::Size(40, 13);
+			this->lblOvnis->Size = System::Drawing::Size(80, 30);
 			this->lblOvnis->TabIndex = 2;
 			this->lblOvnis->Text = L"Ovnis: ";
 			// 
 			// lblPuntos
 			// 
 			this->lblPuntos->AutoSize = true;
-			this->lblPuntos->ForeColor = System::Drawing::Color::Orange;
-			this->lblPuntos->Location = System::Drawing::Point(163, 11);
+			this->lblPuntos->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->lblPuntos->Font = (gcnew System::Drawing::Font(L"Ebrima", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblPuntos->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->lblPuntos->Location = System::Drawing::Point(3, 30);
 			this->lblPuntos->Name = L"lblPuntos";
-			this->lblPuntos->Size = System::Drawing::Size(46, 13);
+			this->lblPuntos->Size = System::Drawing::Size(94, 30);
 			this->lblPuntos->TabIndex = 1;
 			this->lblPuntos->Text = L"Puntos: ";
 			// 
 			// lblVidas
 			// 
 			this->lblVidas->AutoSize = true;
-			this->lblVidas->ForeColor = System::Drawing::Color::OrangeRed;
-			this->lblVidas->Location = System::Drawing::Point(35, 11);
+			this->lblVidas->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->lblVidas->Font = (gcnew System::Drawing::Font(L"Ebrima", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblVidas->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->lblVidas->Location = System::Drawing::Point(3, 60);
 			this->lblVidas->Name = L"lblVidas";
-			this->lblVidas->Size = System::Drawing::Size(39, 13);
+			this->lblVidas->Size = System::Drawing::Size(78, 30);
 			this->lblVidas->TabIndex = 0;
 			this->lblVidas->Text = L"Vidas: ";
 			// 
@@ -151,7 +178,23 @@ namespace FireDragon {
 		lblOvnis->Text = "Ovnis: " + servicio->getOvnisDestruidos();
 		lblPuntos->Text = "Puntos: " + servicio->getPuntos();
 		lblVidas->Text = "Vidas: " + servicio->getVidasRestantes();
+		
+		if (servicio->JuegoTerminado()) {
+			if(servicio->gano()){
+				lblGameOver->Text = "YOU WIN";
+			}
+			else{
+				lblGameOver->Text = "GAME OVER";
+			}
+			lblGameOver->Visible = true;
+			// colocar labels en el centro
+			lblOvnis->Location = System::Drawing::Point((pnlJuego->Width - lblOvnis->Width) / 2, lblOvnis->Location.Y);
+			lblPuntos->Location = System::Drawing::Point((pnlJuego->Width - lblPuntos->Width) / 2, lblPuntos->Location.Y);
+			lblVidas->Location = System::Drawing::Point((pnlJuego->Width - lblVidas->Width) / 2, lblVidas->Location.Y);
 
+
+			timerJuego->Stop();
+		}
 
 		Graphics^ g = buffer->Graphics;
 		g->Clear(Color::Black);
@@ -160,6 +203,10 @@ namespace FireDragon {
 	}
 private: System::Void FrmJuego_Load(System::Object^ sender, System::EventArgs^ e) {
 	timerJuego->Interval = 50; // 50 ms
+	lblGameOver->Visible = false;
+	lblOvnis->Text = "Ovnis: 0";
+	lblPuntos->Text = "Puntos: 0";
+	lblVidas->Text = "Vidas: 5";
 
 	timerJuego->Start();
 	BufferedGraphicsContext^ context = BufferedGraphicsManager::Current;

@@ -39,6 +39,9 @@
     <Image Include="DragonFuego.png">
       <Filter>Resource</Filter>
     </Image>
+    <Image Include="Dificultad.png">
+      <Filter>Resource</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrmFireDragon.cpp">

@@ -48,11 +48,11 @@ void BolaDeFuego::dibujar(Graphics^ canvas) {
 	canvas->DrawImage(bitmap, cuadroDestino, cuadroOrigen, GraphicsUnit::Pixel);
 	delete bitmap;
 
-	// Hitbox
-	Pen^ pen = gcnew Pen(Color::Red);
-	Rectangle hitbox = getRectangle();
-	canvas->DrawRectangle(pen, hitbox);
-	delete pen;
+	//// Hitbox
+	//Pen^ pen = gcnew Pen(Color::Red);
+	//Rectangle hitbox = getRectangle();
+	//canvas->DrawRectangle(pen, hitbox);
+	//delete pen;
 }
 Rectangle BolaDeFuego::getRectangle() {
 	// Ajustar el rectángulo para que sea un poco más pequeño que la imagen

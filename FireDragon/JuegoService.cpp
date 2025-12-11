@@ -1,9 +1,9 @@
 #include "JuegoService.h"
 
-JuegoService::JuegoService(int ancho, int alto, string nombreJugador) {
+JuegoService::JuegoService(int ancho, int alto, string nombreJugador, int dificultad) {
 	this->anchoPanel = ancho;
 	this->altoPanel = alto;
-	dragon = new Dragon(10, alto/2);
+	dragon = new Dragon(10, alto / 2);
 	gestorArchivo = new GestorArchivo();
 	fondoDinamico = new FondoDinamico("Fondo_nubes.png", anchoPanel, altoPanel);
 	this->nombreJugador = nombreJugador;
@@ -11,10 +11,13 @@ JuegoService::JuegoService(int ancho, int alto, string nombreJugador) {
 	victoria = false;
 	tiempoOvni = 0;
 	OvniAparecido = false;
+	this->dificultad = dificultad;// 1: facil, 2: medio, 3: dificil, 4: infinito
+	yaGuardo = false;
 	srand(time_t(NULL));
 }
 JuegoService::~JuegoService() {
-	guardarResultado();
+	if (!yaGuardo)
+		guardarResultado();
 	if (dragon) delete dragon;
 	if (gestorArchivo) delete gestorArchivo;
 	for (Ovni* o : ovnis)
@@ -30,8 +33,8 @@ void  JuegoService::inicializar() {
 	char* rutaDinamica = "Fondo_nubes.png";
 	fondoDinamico->cargarImagen(rutaDinamica, anchoPanel, altoPanel);
 	char* rutaDragon = "DragonFuego.png";
-	dragon->cargarImagen(rutaDragon, 4,4);
-	
+	dragon->cargarImagen(rutaDragon, 4, 4);
+
 }
 void  JuegoService::generarBolas() {
 	if (juegoterminado) return;
@@ -48,11 +51,24 @@ void  JuegoService::generarBolas() {
 }
 void  JuegoService::generarOvnis() {
 	if (juegoterminado || OvniAparecido) return;
-	tiempoOvni = 45;
+	switch (dificultad) {
+	case 1: // facil
+		tiempoOvni = rand()%10 + 25;
+		break;
+	case 2: // medio
+		tiempoOvni = rand()%10 + 15;
+		break;
+	case 3: // dificil
+		tiempoOvni = rand()%10 + 5;
+		break;
+	case 4: // infinito
+		tiempoOvni = rand()%9 + 1;
+		break;
+	}
 	OvniAparecido = true;
 	int x = anchoPanel;
-	int y = rand() % (altoPanel-120);
-	Ovni* ovni = new Ovni(x,y);
+	int y = rand() % (altoPanel - 120);
+	Ovni* ovni = new Ovni(x, y);
 	ovni->cargarImagen("Ovni.png", 1, 4);
 	ovnis.push_back(ovni);
 }
@@ -61,7 +77,7 @@ void  JuegoService::moverDragon(Direccion tecla) {
 }
 
 void JuegoService::moverOvnis() {
-	for(int i =0; i<ovnis.size(); i++) {
+	for (int i = 0; i < ovnis.size(); i++) {
 		Ovni* o = ovnis[i];
 		if (o->isActivo()) {
 			o->mover(Direccion::Ninguno, anchoPanel, altoPanel);
@@ -74,7 +90,7 @@ void JuegoService::moverOvnis() {
 	}
 }
 void JuegoService::moverBolas() {
-	for(int i = 0; i < bolasF.size(); i++) {
+	for (int i = 0; i < bolasF.size(); i++) {
 		BolaDeFuego* b = bolasF[i];
 		if (b->isActivo()) {
 			b->mover(Direccion::Ninguno, anchoPanel, altoPanel);
@@ -87,7 +103,7 @@ void JuegoService::moverBolas() {
 	}
 }
 void  JuegoService::verificarColisionBolaOnvi() {
-	for(int i = 0; i < bolasF.size(); i++) {
+	for (int i = 0; i < bolasF.size(); i++) {
 		BolaDeFuego* b = bolasF[i];
 		Rectangle rectBola = b->getRectangle();
 		for (int j = 0; j < ovnis.size(); j++) {
@@ -146,9 +162,17 @@ void  JuegoService::actualizarEstadoJuego() {
 		juegoterminado = true;
 		victoria = false;
 	}
-	
+	// condicion de victoria: segund dificultad infinito, no tiempo limite
+	if (dificultad == 4) return;
+	if (dificultad == 3 && ovnisDestruidos >= 30
+		|| dificultad == 2 && ovnisDestruidos >= 20
+		|| dificultad == 1 && ovnisDestruidos >= 10) {
+		victoria = true;
+		juegoterminado = true;
+	}
 }
-void JuegoService::actualizarOvni(){
+void JuegoService::actualizarOvni() {
+	// Actualizar tiempo de ovni mientras este aparecido
 	if (tiempoOvni > 0 && OvniAparecido) {
 		tiempoOvni--;
 		if (tiempoOvni <= 0) {
@@ -189,7 +213,7 @@ void JuegoService::guardarResultado() {
 	gestorArchivo->guardarLineas(nombreArchivo, lineas, ';');
 }
 System::String^ JuegoService::leerResultado() {
-	if(!gestorArchivo->archivoExiste("progresoDragonFire.txt")) {
+	if (!gestorArchivo->archivoExiste("progresoDragonFire.txt")) {
 		return gcnew System::String("No hay resultados guardados.");
 	}
 	vector<vector<string>> lineas = gestorArchivo->leerLineasString("progresoDragonFire.txt", ';');
@@ -204,7 +228,7 @@ System::String^ JuegoService::leerResultado() {
 }
 
 
-void JuegoService::dibujarTodo(Graphics^ canvas){
+void JuegoService::dibujarTodo(Graphics^ canvas) {
 	fondoDinamico->dibujar(canvas, anchoPanel, altoPanel);
 	for (Ovni* o : ovnis) {
 		if (o->isActivo()) {

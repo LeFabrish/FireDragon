@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Image Include="Bola_de_fuego.png" />
+    <Image Include="Dificultad.png" />
     <Image Include="DragonFuego.png" />
     <Image Include="Fondo_nubes.png" />
     <Image Include="IconoFireDragon.png" />

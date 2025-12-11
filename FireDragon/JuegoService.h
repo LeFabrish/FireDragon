@@ -33,10 +33,13 @@ private:
 	 int vidasRestantes = 5;
 	 string nombreJugador = "Jugador1";
 
+	 // dificultad
+	 int dificultad; // 1: facil, 2: medio, 3: dificil, 4: infinito
+	 bool yaGuardo;
 
 public:
 
-	JuegoService(int ancho, int alto, string nombreJugador);
+	JuegoService(int ancho, int alto, string nombreJugador, int dificultad);
 	~JuegoService();
 	void  inicializar();
 	void  generarBolas();

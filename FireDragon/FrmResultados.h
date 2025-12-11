@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "JuegoService.h"
 #include "GestorArchivo.h" // Necesitamos incluir esto para leer el archivo directamente
 #include <vector>
@@ -44,7 +44,7 @@ namespace FireDragon {
 			   // listView1
 			   // 
 			   this->listView1->HideSelection = false;
-			   this->listView1->Location = System::Drawing::Point(50, 50); // Ajusté un poco la posición
+			   this->listView1->Location = System::Drawing::Point(50, 50); // AjustÃ© un poco la posiciÃ³n
 			   this->listView1->Name = L"listView1";
 			   this->listView1->Size = System::Drawing::Size(600, 250);
 			   this->listView1->TabIndex = 0;
@@ -68,7 +68,7 @@ namespace FireDragon {
 		   }
 #pragma endregion
 
-		   // Método para configurar las columnas
+		   // MÃ©todo para configurar las columnas
 	private: void ConfigurarLista() {
 		this->listView1->Columns->Clear();
 		this->listView1->Columns->Add("Jugador", 150);
@@ -78,7 +78,7 @@ namespace FireDragon {
 		this->listView1->Columns->Add("Estado", 100);
 	}
 
-		   // Método para leer el archivo y llenar la tabla
+		   // MÃ©todo para leer el archivo y llenar la tabla
 	private: void CargarPuntajes() {
 		GestorArchivo archivo;
 		string nombreArchivo = "progresoDragonFire.txt";
@@ -110,7 +110,7 @@ namespace FireDragon {
 			}
 		}
 		else {
-			MessageBox::Show("Aún no hay registros de partidas.", "Información", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			MessageBox::Show("AÃºn no hay registros de partidas.", "InformaciÃ³n", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 	}
 
